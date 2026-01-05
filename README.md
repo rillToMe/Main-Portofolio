@@ -76,7 +76,7 @@ AetherStudio/
 │   ├── badges.html
 │   └── project.html
 ├── home.html
-├── package.json        # Node.js configuration (little)
+├── package.json        # Node.js configuration
 ├── vercel.json         # Routing & rewrite rules
 └── README.md
 ```
