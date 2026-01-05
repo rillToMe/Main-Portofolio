@@ -131,10 +131,10 @@ AetherStudio/
 
 | Section | Screenshot |
 |:--------|:-----------|
-| Tech Stack | ![Tech Stack](./assets/img/img-project/preview-techstack.png) |
-| Services | ![Services](./assets/img/img-project/preview-service.png) |
-| Projects | ![Projects](./assets/img/img-project/preview-project.png) |
-| Certificates | ![Certificates](./assets/img/img-project/preview-certs.png) |
+| Tech Stack | ![Tech Stack](./assets/img/preview-readme/preview-techstack.png) |
+| Services | ![Services](./assets/img/preview-readme/preview-service.png) |
+| Projects | ![Projects](./assets/img/preview-readme/preview-project.png) |
+| Certificates | ![Certificates](./assets/img/preview-readme/preview-certs.png) |
 
 ---
 
@@ -163,3 +163,4 @@ feel free to fork, learn, and remix with proper attribution.
 
 > “Build. Learn. Iterate. Evolve - that’s what Aether Studio stands for.”  
 > - **Rahmat Aditya**
+
