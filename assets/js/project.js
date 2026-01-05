@@ -1,101 +1,135 @@
-(() => {
-  if (window.__PROJECT_TRIM_INITED__) return;
-  window.__PROJECT_TRIM_INITED__ = true;
+(async function () {
+  const isHomePage =
+    window.location.pathname.includes("home.html") ||
+    window.location.pathname === "/";
 
-  const isTouch = matchMedia("(hover: none) and (pointer: coarse)").matches;
+  const projectContainer =
+    document.querySelector("#projects .grid-3") ||
+    document.querySelector(".project-page");
 
+  if (!projectContainer) return;
+
+  try {
+    const limit = isHomePage ? 4 : null;
+    const url = limit ? `/api/projects?limit=${limit}` : "/api/projects";
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    if (!data.projects || data.projects.length === 0) {
+      projectContainer.innerHTML =
+        '<p style="color: var(--text-dim); text-align: center;">No projects available yet.</p>';
+      return;
+    }
+
+    projectContainer.innerHTML = data.projects
+  .map(
+    (p) => `
+    <article class="project card hover-glow">
+      <img src="${p.image_url}" alt="${p.title}" loading="lazy"/>
+      <div class="project-body">
+        <h4>${p.title}</h4>
+        <p class="desc">${escapeHTML(p.description || "")}</p>
+        
+        <div class="project-footer">
+            <button class="desc-toggle" type="button">Read more</button>
+
+            <a class="btn tiny btn-ghost"
+              href="${p.github_link || p.demo_link || "#"}"
+              target="_blank"
+              rel="noopener">
+              <i class="fa-solid fa-up-right-from-square"></i> View Details
+            </a>
+        </div>
+      </div>
+    </article>
+  `
+  )
+  .join("");
+
+    applyTrimLogic();
+  } catch (err) {
+    console.error("Failed to load projects:", err);
+    projectContainer.innerHTML =
+      '<p style="color: var(--error);">Failed to load projects. Please refresh.</p>';
+  }
+})();
+
+function applyTrimLogic() {
   const CHAR_LIMIT_DESKTOP = 110;
-  const CHAR_LIMIT_MOBILE  = 140;
+  const CHAR_LIMIT_MOBILE = 140;
 
-  const cards = document.querySelectorAll(".project.card");
+  const isMobile =
+    matchMedia("(hover: none) and (pointer: coarse)").matches ||
+    window.innerWidth <= 620;
 
-  cards.forEach((card) => {
-    const p =
-      card.querySelector(".project-body p.desc") ||
-      card.querySelector(".project-body p");
-    if (!p) return;
+  const limit = isMobile ? CHAR_LIMIT_MOBILE : CHAR_LIMIT_DESKTOP;
 
-    const fullText = (p.textContent || "").trim().replace(/\s+/g, " ");
-    if (!fullText) return;
+  document.querySelectorAll(".project.card").forEach((card) => {
+    const p = card.querySelector(".project-body .desc");
+    const btn = card.querySelector(".desc-toggle");
 
-    const limit =
-      (isTouch || window.innerWidth <= 620)
-        ? CHAR_LIMIT_MOBILE
-        : CHAR_LIMIT_DESKTOP;
+    if (!p || !btn) return;
+
+    const fullText = normalizeText(p.textContent);
+    if (!fullText) {
+      btn.remove();
+      return;
+    }
+
+    if (fullText.length <= limit) {
+      btn.remove(); 
+      return;
+    }
 
     const shortText = truncateToWord(fullText, limit);
 
-    if (shortText.length === fullText.length) return;
-
-    p.classList.add("js-trim");
+    p.textContent = shortText + "…";
     p.dataset.full = fullText;
     p.dataset.short = shortText;
 
-    if (isTouch) {
-      setShortMobile(p);
-      injectMobileToggle(card, p);
-    } else {
-
-      setShortDesktop(p);
-      attachHoverDesktop(card, p);
-    }
-  });
-
-
-  function truncateToWord(str, limit) {
-    if (str.length <= limit) return str;
-    let cut = str.slice(0, limit);
-    cut = cut.replace(/\s+\S*$/, "");
-    return cut;
-  }
-
-  function setShortDesktop(p) {
-    const short = p.dataset.short + "…";
-    p.textContent = short + " ";
-    const rm = document.createElement("span");
-    rm.className = "readmore-inline";
-    rm.textContent = "Read more";
-    rm.style.color = "#888";
-    rm.style.fontStyle = "italic";
-    rm.style.fontSize = "13px";
-    rm.style.opacity = "0.8";
-    p.appendChild(rm);
-  }
-
-  function attachHoverDesktop(card, p) {
-    const full = p.dataset.full;
-    const short = p.dataset.short;
-    card.addEventListener("mouseenter", () => {
-      p.textContent = full;
-    });
-    card.addEventListener("mouseleave", () => {
-      setShortDesktop(p);
-    });
-  }
-
-  function setShortMobile(p) {
-    p.textContent = p.dataset.short + "…";
-  }
-
-  function injectMobileToggle(card, p) {
-    const btn = document.createElement("button");
-    btn.className = "desc-toggle";
-    btn.type = "button";
-    btn.textContent = "Read more";
-
-    const cta = card.querySelector(".project-body .btn");
-    (cta ? cta : card.querySelector(".project-body")).before(btn);
-
     btn.addEventListener("click", () => {
-      const open = card.classList.toggle("is-open");
-      if (open) {
-        p.textContent = p.dataset.full;
+      const expanded = card.classList.toggle("expanded");
+
+      if (expanded) {
+        p.textContent = fullText;
         btn.textContent = "Show less";
-        card.scrollIntoView({ behavior: "smooth", block: "start" });
       } else {
-        setShortMobile(p);
+        p.textContent = shortText + "…";
         btn.textContent = "Read more";
       }
     });
-  }
-})();
+  });
+}
+
+function truncateToWord(str, limit) {
+  if (str.length <= limit) return str;
+  let cut = str.slice(0, limit);
+  return cut.replace(/\s+\S*$/, "");
+}
+
+function normalizeText(str) {
+  return (str || "").trim().replace(/\s+/g, " ");
+}
+
+function escapeHTML(str) {
+  return str.replace(/[&<>"']/g, (m) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+  }[m]));
+}
+
+document.querySelectorAll(".read-more").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const card = btn.closest(".project.card");
+    card.classList.toggle("expanded");
+
+    btn.textContent =
+      card.classList.contains("expanded")
+        ? "Show less"
+        : "Read more";
+  });
+});

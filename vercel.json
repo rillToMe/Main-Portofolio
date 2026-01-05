@@ -1,16 +1,16 @@
 {
   "rewrites": [
     { "source": "/", "destination": "/home.html" },
-
+    { "source": "/admin", "destination": "/admin/index.html" },
+    { "source": "/admin/dashboard", "destination": "/admin/dashboard.html" },
     { "source": "/credentials", "destination": "/credentials/badges.html" },
     { "source": "/credentials/badges", "destination": "/credentials/badges.html" },
     { "source": "/credentials/project", "destination": "/credentials/project.html" }
   ],
-
   "redirects": [
     { "source": "/index.html", "destination": "/", "permanent": true },
     { "source": "/home.html", "destination": "/", "permanent": true },
-
+    { "source": "/admin/index.html", "destination": "/admin", "permanent": true },
     { "source": "/credentials/badges.html", "destination": "/credentials/badges", "permanent": true },
     { "source": "/credentials/project.html", "destination": "/credentials/project", "permanent": true }
   ]

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login - Portfolio</title>
+  <link rel="icon" type="image/x-icon" href="/assets/img/logo.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/admin/css/login.css">
+</head>
+<body class="login-page">
+  <div class="login-container">
+    <div class="login-card">
+      <div class="logo">
+        <i class="fa-solid fa-shield-halved"></i>
+        <h1>Admin Portal</h1>
+      </div>
+
+      <form id="loginForm" class="login-form">
+        <div class="form-group">
+          <label for="username">
+            <i class="fa-solid fa-user"></i>
+            Username
+          </label>
+          <input type="text" id="username" name="username" required autocomplete="username">
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            <i class="fa-solid fa-lock"></i>
+            Password
+          </label>
+          <input type="password" id="password" name="password" required autocomplete="current-password">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-right-to-bracket"></i>
+          Login
+        </button>
+      </form>
+
+      <div class="back-link">
+        <a href="../home.html">
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to Portfolio
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <script src="/admin/js/login.js"></script>
+</body>
+</html>

@@ -504,27 +504,25 @@ body {
 }
 
 .project.card {
+  min-height: 440px; 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  min-height: 420px; 
-  background: rgba(20, 24, 26, 0.88);
-  border: 1px solid rgba(46, 196, 182, 0.15);
+  overflow: visible; 
+  background: var(--card-bg, #1a1a1a); 
   border-radius: 16px;
-  padding: 16px;
-  overflow: hidden;
-  transition: transform 0.35s ease, box-shadow 0.35s ease,
-    min-height 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  padding: 16px; 
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
+
 .project.card:hover {
-  min-height: 500px;
-  box-shadow: 0 0 26px rgba(0, 255, 240, 0.18);
   transform: translateY(-6px);
+  box-shadow: 0 0 26px rgba(0, 255, 240, 0.18);
 }
 
 .project.card img {
   width: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 12px;
   margin-bottom: 14px;
@@ -533,130 +531,77 @@ body {
 .project-body {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  justify-content: space-between;
+  flex: 1;
 }
-.project-body h4 {
-  margin: 0 0 6px;
+
+.project .desc {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.project-footer {
+  margin-top: auto; 
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project .btn.tiny {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+}
+
+.project.card.expanded {
+  height: auto; 
+  z-index: 10;
+}
+
+.project.card.expanded {
+  height: auto; 
+}
+
+.project.card.expanded .desc {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.project .desc-toggle {
+  display: inline-block;
+  align-self: flex-start;
+  background: transparent;
+  border: none;
   color: var(--accent, #00fff0);
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-.project-body p {
-  color: #cfe;
-  opacity: 0.88;
-  font-size: 15px;
-  line-height: 1.45;
-  margin: 0 0 14px;
-  position: relative;
-
-  display: -webkit-box;
-  display: box;
-  -webkit-box-orient: vertical;
-  box-orient: vertical;
-  -webkit-line-clamp: 3;
-  line-clamp: 3;
-  overflow: hidden;
-}
-
-.project-body p::after {
-  content: "… Read more";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding-left: 10px;
-  background: linear-gradient(
-    90deg,
-    rgba(20, 24, 26, 0) 0%,
-    rgba(20, 24, 26, 1) 40%
-  );
-  color: #888;
-  font-style: italic;
   font-size: 13px;
-  font-weight: 400;
-  opacity: 0.7;
-  transition: opacity 0.25s ease, color 0.25s ease;
+  padding: 0;
+  margin: 6px 0 10px;
+  cursor: pointer;
+  opacity: 0.85;
 }
 
-.project-body p::after:hover {
-  color: #aaa;
+.project .desc-toggle:hover {
+  text-decoration: underline;
   opacity: 1;
 }
 
-.project.card:hover .project-body p {
-  -webkit-line-clamp: unset;
-  line-clamp: none;
-  overflow: visible;
-}
-.project.card:hover .project-body p::after {
-  opacity: 0;
-  pointer-events: none;
-}
-
-.project-body .btn {
-  align-self: flex-start;
-  margin-top: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(0, 255, 240, 0.05);
-  border: 1px solid rgba(0, 255, 240, 0.25);
-  color: #9ff;
-  padding: 8px 14px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-size: 14px;
-  transition: 0.3s;
-}
-.project-body .btn:hover {
-  background: rgba(0, 255, 240, 0.1);
-  color: var(--accent, #00fff0);
-  box-shadow: 0 0 12px rgba(0, 255, 240, 0.25);
-  transform: translateY(-2px);
-}
-
-.desc-toggle {
-  display: none;
-}
-
 @media (hover: none) and (pointer: coarse) {
-  .desc-toggle {
-    display: inline-block;
-    align-self: flex-start;
-    margin: 4px 0 8px;
+  .project .desc-toggle {
     padding: 6px 12px;
     font-size: 12px;
     border-radius: 999px;
     color: #9ff;
     background: rgba(0, 255, 240, 0.05);
     border: 1px solid rgba(0, 255, 240, 0.25);
-    cursor: pointer;
     transition: 0.25s ease;
   }
-  .desc-toggle:hover {
-    color: var(--accent, #00fff0);
+
+  .project .desc-toggle:hover {
     background: rgba(0, 255, 240, 0.1);
     box-shadow: 0 0 12px rgba(0, 255, 240, 0.2);
     transform: translateY(-1px);
   }
 }
 
-.project.card.is-open {
-  min-height: 520px;
-  box-shadow: 0 0 26px rgba(0, 255, 240, 0.18);
-  transform: translateY(-6px);
-}
-.project.card.is-open .project-body .desc {
-  -webkit-line-clamp: unset;
-  line-clamp: none;
-  overflow: visible;
-}
-.project.card.is-open .project-body .desc::after {
-  opacity: 0;
-  pointer-events: none;
-}
-.project-body p.js-trim::after { content: none !important; }
 
 
 /* certivikat */

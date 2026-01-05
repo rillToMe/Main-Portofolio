@@ -1,3 +1,15 @@
 {
-  "type": "module"
+  "name": "portfolio-cms",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vercel dev",
+    "deploy": "vercel --prod"
+  },
+  "dependencies": {
+    "pg": "^8.11.3",
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.2",
+    "cookie": "^0.6.0"
+  }
 }

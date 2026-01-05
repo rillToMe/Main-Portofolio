@@ -1,4 +1,4 @@
-# 🌌 Personal Portfolio - Aether Studio
+# 🌌 Personal Portfolio - DitDev
 
 [![Stars](https://img.shields.io/github/stars/rillToMe/Main-Portofolio?style=for-the-badge&color=2EC4B6)](https://github.com/rillToMe/Main-Portofolio/stargazers)
 [![Forks](https://img.shields.io/github/forks/rillToMe/Main-Portofolio?style=for-the-badge&color=00bcd4)](https://github.com/rillToMe/Main-Portofolio/network/members)
@@ -10,7 +10,7 @@
 
 ## ✨ Overview
 
-**Aether Studio** is a personal portfolio site created by **Rahmat Aditya (rillToMe)** -  
+**DitDev** is a personal portfolio site created by **Rahmat Aditya (rillToMe)** -  
 a student and developer focused on **Game Development,AI experiments and creative technology**.  
 This website serves as a central hub for all of Adit’s projects, experiments, and personal milestones.
 
@@ -51,7 +51,7 @@ Now rebuilt as a **lightweight & high-performance** web experience, balancing **
 
 | Category | Technologies |
 |-----------|---------------|
-| **Frontend** | HTML5, CSS3, JavaScript |
+| **Frontend** | HTML5, CSS3, JavaScript, Node.js |
 | **Design & UI** | Neon Theme, Font Awesome Icons, Smooth CSS Animations |
 | **AI / ML** | Python, NumPy, PyTorch |
 | **Game Development** | Unity (C#), Blender |
@@ -65,7 +65,12 @@ Now rebuilt as a **lightweight & high-performance** web experience, balancing **
 ```bash
 AetherStudio/
 ├── api/
+│   ├── lib
 │   └── proxy.js
+├── admin/
+│   ├── js/          # Background music
+│   ├── css/            # Styles (style.css, bgm.css)
+│   └── thumbs/
 ├── assets/
 │   ├── audio/          # Background music
 │   ├── css/            # Styles (style.css, bgm.css)
@@ -76,7 +81,7 @@ AetherStudio/
 │   ├── badges.html
 │   └── project.html
 ├── home.html
-├── package.json        # Node.js configuration
+├── package.json        # Node.js configuration 
 ├── vercel.json         # Routing & rewrite rules
 └── README.md
 ```
@@ -94,12 +99,12 @@ AetherStudio/
 2. **Run a Local Server**
    You can use VS Code’s Live Server or:
    ```bash
-   python -m http.server
+   vercel dev
    ```
-   Then open: [http://127.0.0.1:8000](http://127.0.0.1:8000)
+   Then open: [vercel dev]()
 
 3. **Edit Content**
-   - Update data in `index.html`, `about.html`, etc.  
+   - Update data in `Admin Panel`, `home.html`.  
    - Replace `/assets/audio/lofi.mp3` if you want new background music.  
    - Adjust project & certificate data in `/assets/js/app.js`.
 
@@ -126,9 +131,10 @@ AetherStudio/
 
 | Section | Screenshot |
 |:--------|:-----------|
-| Tech Stack | ![Tech Stack](./assets/img/preview-techstack.png) |
-| Services | ![Services](./assets/img/preview-service.png) |
-| Certificates | ![Certificates](./assets/img/preview-certs.png) |
+| Tech Stack | ![Tech Stack](./assets/img/img-project/preview-techstack.png) |
+| Services | ![Services](./assets/img/img-project/preview-service.png) |
+| Projects | ![Projects](./assets/img/img-project/preview-project.png) |
+| Certificates | ![Certificates](./assets/img/img-project/preview-certs.png) |
 
 ---
 

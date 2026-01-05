@@ -1,6 +1,6 @@
 const STUDY_START = new Date('2024-08-28T00:00:00+07:00');
-const PROJECTS_COUNT = 5;
 const EXP_COUNT = 11;
+let PROJECTS_COUNT = 5;
 
 function monthsSince(start, now = new Date()) {
   const y = now.getFullYear() - start.getFullYear();
@@ -24,7 +24,19 @@ function animateCount(el, target, {duration=1300, suffix=''} = {}) {
   requestAnimationFrame(frame);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+async function fetchProjectCount() {
+  try {
+    const res = await fetch('/api/projects?count=true');
+    const data = await res.json();
+    PROJECTS_COUNT = data.count || 5;
+  } catch (err) {
+    console.error('Failed to fetch project count:', err);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  await fetchProjectCount(); 
+
   const monthsEl = document.getElementById('stat-months');
   const projEl   = document.getElementById('stat-projects');
   const expEl    = document.getElementById('stat-exp');
